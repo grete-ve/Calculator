@@ -1,34 +1,17 @@
-from calculator import Calculator
-import re
+from models.calculator import Calculator
+from models.expression import Expression
 
 # this is main function
 def main():
+    global SplitExpression
     # create instance of Calculator class
     calc = Calculator()
     # ask user for input and remove spaces from the input string
     #input_str = input("Enter the expression: ").replace(" ", "")
-    input_str = '0-10-10'
-    # split the numbers and operators
-    numbers = []
-    for t in re.split(r'(\d*\.?\d*)', input_str):
-        try:
-            numbers.append(float(t))
-        except ValueError:
-            pass
+    input_str = '10 * 2 / 2 + 1 * 4'
+    expression = Expression(input_str)
 
-    all_operators = ['+', '-', '*', '/']
-    operators = []
-    for s in input_str:
-        if (s in all_operators):
-            operators.append(s)
-    
-    # check if '*' or '/' is present in operators
-    if '*' in operators or '/' in operators:
-        # execute the calculation with operator precedence
-        result = calc.calculate_with_precedence(numbers, operators)
-    else:
-        # execute the calculation without operator precedence
-        result = calc.calculate(numbers, operators)
+    result = calc.calculate_with_precedence(expression.numbers, expression.operators)
     print("Result:", result)
 
 
