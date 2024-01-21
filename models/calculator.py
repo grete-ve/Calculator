@@ -51,4 +51,8 @@ class Calculator:
         else:
             # execute the calculation without operator precedence
             result = self.calculate(numbers, operators)
+
+        if result.is_integer():
+            result = int(result)
+            
         return result
